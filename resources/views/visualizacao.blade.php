@@ -14,7 +14,14 @@
     <div class="row">
         <!-- Capa -->
         <div class="col-md-4">
-            <img src="{{ asset('images/' . $obras->capa) }}" alt="Capa da obra" class="img-fluid rounded shadow-sm">
+            @if ($obras->categoria->id != '2')
+            <a href="https://youtu.be/{{ $obras->video->youtube_id }}"
+                class="list-group-item list-group-item-action player">
+                <img src="{{ $obras->video->image }}" alt="Capa da obra" class="img-fluid rounded shadow-sm">
+            </a>
+            @else
+            <img src="{{ $obras->video->image }}" alt="Capa da obra" class="img-fluid rounded shadow-sm">
+            @endif
         </div>
 
         <!-- Informações -->
@@ -28,12 +35,13 @@
     </div>
 
     <!-- Lista de Episódios (visível apenas se for uma série) -->
-    @if($obras->tipo == 'Serie')
+    @if($obras->categoria->id == '2')
     <div class="mt-5">
         <h3>Episódios</h3>
         <div class="list-group">
             @foreach($obras->episodios as $episodio)
-            <a href="{{-- route('episodios.show', $episodio->id) --}}" class="list-group-item list-group-item-action">
+            <a href="https://youtu.be/{{ $obras->video->youtube_id }}"
+                class="list-group-item list-group-item-action player">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5>Temporada {{ $episodio->temporada }} - {{ $episodio->titulo }}</h5>
                     <small>{{ $episodio->duracao }} min</small>
@@ -45,4 +53,9 @@
     </div>
     @endif
 </div>
+<script>
+    window.onload = function() {
+            $(".player").yu2fvl();
+        };    
+</script>
 @endsection

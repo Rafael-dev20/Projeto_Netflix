@@ -39,6 +39,24 @@ nav{
     margin: 15px 0 15px 0;
 }
 
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.card-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card-body ul {
+    padding: 0;
+}
+
+.card-body ul li {
+    font-size: 0.9rem;
+}
+
+
 /* @media (min-width: 576px) {
     .modal-dialog { max-width: none; }
 }

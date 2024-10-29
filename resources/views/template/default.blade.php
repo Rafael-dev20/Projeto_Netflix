@@ -84,6 +84,84 @@
     <div class="content text-light p-5">
         @yield('content')
     </div>
+    <!-- Button to Open the Modal -->
+    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planModal">
+        Escolher Plano
+    </button> --}}
+
+    <!-- Modal -->
+    <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="planModalLabel">Escolha seu Plano</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    <div class="row text-center">
+                        <!-- Plano Básico -->
+                        <div class="col-md-4">
+                            <div class="card bg-secondary text-light mb-4">
+                                <div class="card-header">
+                                    <h3>Plano Básico</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>R$19,90/mês</h4>
+                                    <ul class="list-unstyled">
+                                        <li>Qualidade: Boa</li>
+                                        <li>Resolução: 480p</li>
+                                        <li>1 Tela</li>
+                                    </ul>
+                                    <a class="btn btn-danger mt-3">Selecionar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plano Padrão -->
+                        <div class="col-md-4">
+                            <div class="card bg-secondary text-light mb-4">
+                                <div class="card-header">
+                                    <h3>Plano Padrão</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>R$32,90/mês</h4>
+                                    <ul class="list-unstyled">
+                                        <li>Qualidade: Alta</li>
+                                        <li>Resolução: 1080p</li>
+                                        <li>2 Telas</li>
+                                    </ul>
+                                    <a class="btn btn-danger mt-3">Selecionar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plano Premium -->
+                        <div class="col-md-4">
+                            <div class="card bg-secondary text-light mb-4">
+                                <div class="card-header">
+                                    <h3>Plano Premium</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4>R$45,90/mês</h4>
+                                    <ul class="list-unstyled">
+                                        <li>Qualidade: Ultra HD</li>
+                                        <li>Resolução: 4K+HDR</li>
+                                        <li>4 Telas</li>
+                                    </ul>
+                                    <a class="btn btn-danger mt-3">Selecionar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="modal fade" id="mdAddVideo" tabindex="-1">

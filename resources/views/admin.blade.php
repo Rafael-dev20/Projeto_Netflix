@@ -31,7 +31,11 @@
     <div class="tab-content mt-4" id="adminTabContent">
         <!-- Usuários Tab -->
         <div class="tab-pane fade show active" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
-            <h3>Usuários</h3>
+            <div style="display: flex;justify-content: space-between;align-items: center;">
+                <h3>Usuários</h3>
+                <button class='btn btn-success' data-name="user" name="add-btn">Novo <li class='fa fa-plus'></li>
+                </button>
+            </div>
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
@@ -68,7 +72,11 @@
 
         <!-- Diretores Tab -->
         <div class="tab-pane fade" id="diretores" role="tabpanel" aria-labelledby="diretores-tab">
-            <h3>Diretores</h3>
+            <div style="display: flex;justify-content: space-between;align-items: center;">
+                <h3>Diretores</h3>
+                <button class='btn btn-success' data-name="diretor" name="add-btn">Novo <li class='fa fa-plus'></li>
+                </button>
+            </div>
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
@@ -101,7 +109,7 @@
         <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
             <div style="display: flex;justify-content: space-between;align-items: center;">
                 <h3>Categorias</h3>
-                <button class='btn btn-success' data-name="categoria" id="add-btn">Novo <li class='fa fa-plus'></li>
+                <button class='btn btn-success' data-name="categoria" name="add-btn">Novo <li class='fa fa-plus'></li>
                 </button>
             </div>
             <table class="table table-dark table-striped">
@@ -134,7 +142,11 @@
 
         <!-- Obras Audiovisuais Tab -->
         <div class="tab-pane fade" id="obras" role="tabpanel" aria-labelledby="obras-tab">
-            <h3>Obras Audiovisuais</h3>
+            <div style="display: flex;justify-content: space-between;align-items: center;">
+                <h3>Obras Audiovisuais</h3>
+                <button class='btn btn-success' data-name="obra" name="add-btn">Novo <li class='fa fa-plus'></li>
+                </button>
+            </div>
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
@@ -157,8 +169,13 @@
                         <td>{{ $obra->diretor->nome }}</td>
                         <td>{{ $obra->categoria->name }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">Editar</a>
-                            <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                            <a data-id="{{ $obra->id }}" data-name="obra" class='btn btn-primary edit-btn'>
+                                <li class='fa fa-pencil'></li>
+                            </a>
+                            |
+                            <a href='{{ route('obra_ex', [ "id"=> $obra->id ]) }}' class='btn btn-danger'>
+                                <li class='fa fa-trash'></li>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
@@ -207,29 +224,84 @@
                 <form id="userForm" style="display:none;" class="pl-4 pr-4" method="post" action="">
                     @csrf
                     <input type="hidden" name="id" id="user_id">
-                    <div class="form-floating mb-3">
-                        <div class="form-group">
-                            <label>Nome</label>
-                            <input type="name" name="nome" class="form-control bg-dark text-white" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>E-mail</label>
-                            <input type="email" name="email" class="form-control bg-dark text-white" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dateInput" class="form-label">Data de nascimento:</label>
-                            <input type="date" name="dt_nascimento" class="form-control bg-dark text-white"
-                                id="dateInput">
-                        </div>
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dt_nascimento" class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="dt_nascimento" name="dt_nascimento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="plano" class="form-label">Plano</label>
+                        <input type="text" class="form-control" id="plano" name="plano">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fg_admin" class="form-label">Administrador</label>
+                        <select class="form-select" id="fg_admin" name="fg_admin" required>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+                    <div id="div_senha" class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="reset_senha">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Resetar senha
+                        </label>
+                      </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" id="modal-submit-button">Salvar</button>
+                    </div>
+                </form>
+                <!--Formulário Obras -->
+                <form id="obraForm" style="display:none;" class="pl-4 pr-4" method="post" action="">
+                    @csrf
+                    <input type="hidden" name="id" id="obra_id">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ano_lancamento" class="form-label">Ano de Lançamento</label>
+                        <input type="date" class="form-control" id="ano_lancamento" name="ano_lancamento">
+                    </div>
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Capa</label>
+                        {{-- <input type="file" class="form-control" id="capa" name="capa" required> --}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="idDiretor" class="form-label">Diretor</label>
+                        <select class="form-select" id="idDiretor" name="idDiretor" required>
+                            <!-- Aqui você deve preencher os diretores com dados do banco -->
+                            @foreach($diretores as $diretor)
+                                <option value="{{ $diretor->id }}">{{ $diretor->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="idCategoria" class="form-label">Categoria</label>
+                        <select class="form-select" id="idCategoria" name="idCategoria" required>
+                            <!-- Aqui você deve preencher as categorias com dados do banco -->
+                            @foreach($categorias as $categoria)
+                                <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary" id="modal-submit-button">Salvar</button>
                     </div>
-
                 </form>
+                
             </div>
         </div>
     </div>
@@ -253,15 +325,14 @@
                     type: 'GET',
                     success: function(response) {
                         // Preenche o modal com os dados da categoria
-                        $('#'+name+'_id').val(response.id);
-                        $('#nome_'+name+'').val(response.name);
+                        $('#div_senha').show();
                         $.each(response, function(i, v){
                             $('form[id='+name+'Form] [name='+i+']').val(v);
                         });
                         
                         // Altera o título e o botão do modal
                         $('#exampleModalLabel').text('Alterar '+name);
-                        $('#modal-submit-button').text('Alterar');
+                        $(this).find('#modal-submit-button').text('Alterar');
 
                         // Altera a ação do formulário para a rota de alteração
                         $('#'+name+'Form').attr('action', '/'+name+'/upd');
@@ -276,11 +347,17 @@
             });
 
             // Quando abrir o modal para inclusão
-            $('#add-btn').on('click', function() {
+            $('[name=add-btn]').on('click', function() {
                 var name = $(this).data('name');
+                console.log(name)
                 // Limpa os campos do modal
-                $('#'+name+'_id').val('');
-                $('#nome_'+name).val('');
+                $('#'+name+'Form input').val('');
+                $('#'+name+'Form textarea').val('');
+                $('#'+name+'Form select').val('');
+
+                $('#exampleModal form').hide();
+                $('#div_senha').hide();
+                $('#'+name+'Form').show();
                 
                 // Restaura o título e o botão do modal
                 $('#exampleModalLabel').text('Incluir '+name);

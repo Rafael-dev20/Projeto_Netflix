@@ -8,10 +8,13 @@ class Video extends Model
 {
     public $timestamps = false;
 
-
     protected $fillable = [
-        'title', 'description', 'slug', 'youtube_id', 'image', 'featured', 'activated', 'created_at', 'idCategoria'
+        'title', 'description', 'slug', 'youtube_id', 'image', 'featured', 'activated'
     ];
 
+    public function obrasAudiovisuais()
+    {
+        return $this->hasMany(ObraAudiovisual::class, 'idVideo');
+    }
     
 }

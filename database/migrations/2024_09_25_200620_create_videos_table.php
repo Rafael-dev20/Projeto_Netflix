@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('image')->nullable(); // URL ou caminho da imagem
             $table->boolean('featured')->default(false); // Indica se é destacado
             $table->boolean('activated')->default(true); // Indica se está ativado
-            $table->timestamps(); // Campos 'created_at' e 'updated_at' automaticamente
-            $table->foreignId('idCategoria')->constrained('categorias')->onDelete('cascade'); // Chave estrangeira para 'category_id'
         });
     }
 

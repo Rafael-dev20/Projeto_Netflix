@@ -7,12 +7,6 @@ use App\Models\Diretor;
 
 class DiretorController extends Controller
 {
-    public function index() 
-    {   
-        $diretores = Diretor::all();
-        return view('template.default', compact('diretores') );
-    }
-
     public function IncluirDiretor(Request $request) 
     {
         $nome = $request->input("nome");

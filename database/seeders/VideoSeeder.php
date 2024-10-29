@@ -24,8 +24,6 @@ class VideoSeeder extends Seeder
                 'image' => 'https://img.youtube.com/vi/sY1S34973zA/0.jpg',
                 'featured' => true,
                 'activated' => true,
-                'created_at' => Carbon::now(),
-                'idCategoria' => 1, // ID da categoria "Filmes"
             ],
             [
                 'title' => 'Breaking Bad',
@@ -35,8 +33,6 @@ class VideoSeeder extends Seeder
                 'image' => 'https://img.youtube.com/vi/HhesaQXLuRY/0.jpg',
                 'featured' => false,
                 'activated' => true,
-                'created_at' => Carbon::now(),
-                'idCategoria' => 2, // ID da categoria "Séries"
             ],
             [
                 'title' => 'Planeta Terra',
@@ -46,8 +42,6 @@ class VideoSeeder extends Seeder
                 'image' => 'https://img.youtube.com/vi/IhYROWOayLw/0.jpg',
                 'featured' => false,
                 'activated' => true,
-                'created_at' => Carbon::now(),
-                'idCategoria' => 3, // ID da categoria "Documentários"
             ],
         ]);
     }

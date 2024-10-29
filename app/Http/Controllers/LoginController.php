@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Video;
+use App\Models\obraAudioVisual;
 
 class LoginController extends Controller
 {
@@ -40,17 +41,19 @@ class LoginController extends Controller
 
         if(!empty($search)){
             $category = Category::where('name', $search)->first();
-            $videos_search = Video::where('idCategoria', $category->id ?? 0)->orWhere('title', 'like', '%'.$search.'%')->get();
+            $videos_search = ObraAudioVisual::where('idCategoria', $category->id ?? 0)->orWhereHas('video', function($query) use ($search) {$query->where('title', 'like', '%'.$search.'%');})->get();
         }else if(!empty($featured)){
             $videos_search = Video::where('featured', 1)->get();
         }else if(!empty($recently)){
-            $videos_search = Video::orderBy('created_at', 'desc')->take(10)->get();
+            $videos_search = obraAudioVisual::orderBy('ano_lancamento', 'desc')->take(10)->get();
         }else{
             $featureds = Video::where('featured', 1)->get();
-            $videos = Video::where('featured', 0)->get();
+            $videos = obraAudioVisual::all();
         }
+        $user = Auth::user();
+        $temPlano = !$user || !$user->plano;
 
-        return view('index', compact('categorias', 'featureds', 'videos', 'search', 'featured', 'videos_search'));
+        return view('index', compact('categorias', 'featureds', 'videos', 'search', 'featured', 'videos_search','temPlano'));
     }
 
     public function admin(){

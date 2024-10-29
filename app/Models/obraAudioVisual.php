@@ -11,8 +11,10 @@ class obraAudioVisual extends Model
 
     protected $table = 'obras_audiovisuais';
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'titulo', 'descricao', 'ano_lancamento', 'capa', 'idDiretor', 'idCategoria', 'tipo'
+        'titulo', 'descricao', 'ano_lancamento', 'idDiretor', 'idCategoria', 'idVideo'
     ];
 
     // Relacionamentos
@@ -24,6 +26,11 @@ class obraAudioVisual extends Model
     public function diretor()
     {
         return $this->belongsTo(Diretor::class, 'idDiretor');
+    }
+
+    public function video()
+    {
+        return $this->belongsTo(Video::class, 'idVideo');
     }
 
     public function episodios()

@@ -19,8 +19,8 @@
 <div class="row mb-5 d-flex">
     @foreach($featureds as $item)
     <div class="m-1 bg-white video-image">
-        <a href="https://youtu.be/{{$item->youtube_id}}" class="player">
-            <img src="{{ $item->image }}" class="img-responsive" title="{{ $item->title }}" alt="">
+        <a id="verificaPlano" href="/visualizacao/{{$item->id}}" class="">
+            <img src="{{ $item->image }}" class="img-responsive" title="{{ $item->titulo }}" alt="">
         </a>
     </div>
     @endforeach
@@ -31,8 +31,8 @@
 <div class="row align-self-center mb-5 d-flex">
     @foreach($videos as $item)
     <div class="m-1 bg-white video-image">
-        <a href="https://youtu.be/{{$item->youtube_id}}" class="player">
-            <img src="{{ $item->image }}" class="img-responsive" title="{{ $item->title }}" alt="">
+        <a id="verificaPlano" href="/visualizacao/{{$item->id}}" class="">
+            <img src="{{ $item->video->image }}" class="img-responsive" title="{{ $item->titulo }}" alt="">
         </a>
     </div>
     @endforeach
@@ -50,8 +50,8 @@
 <div class="row align-self-center mb-5 d-flex">
     @foreach($videos_search as $item)
     <div class="m-1 bg-white video-image">
-        <a href="https://youtu.be/{{$item->youtube_id}}" class="player">
-            <img src="{{ $item->image }}" class="img-responsive" title="{{ $item->title }}" alt="">
+        <a id="verificaPlano" href="/visualizacao/{{$item->id}}" class="">
+            <img src="{{ $item->image }}" class="img-responsive" title="{{ $item->titulo }}" alt="">
         </a>
     </div>
     @endforeach
@@ -62,11 +62,17 @@
 
 @endif
 
-
-
 <script>
-    window.onload = function() {
-            $(".player").yu2fvl();
-        };    
+    $(document).ready(function() {
+        const temPlano = @json($temPlano);
+
+        $('#verificaPlano').on('click', function(e) {
+            if (temPlano) {
+                e.preventDefault();
+                $('#planModal').modal('show');
+            }
+        });
+    });
 </script>
+
 @endsection
